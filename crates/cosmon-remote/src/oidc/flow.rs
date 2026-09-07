@@ -651,7 +651,7 @@ fn redirect_port(redirect_uri: &str) -> u16 {
 /// the flow fails loud with [`OidcError::NoIdentityBearer`] rather than
 /// persisting a bearer the server is guaranteed to reject `401 malformed_jwt`.
 fn identity_bearer(tokens: &TokenResponse) -> Result<&str> {
-    [tokens.id_token.as_str(), tokens.access_token.as_str()]
+    [tokens.access_token.as_str(), tokens.id_token.as_str()]
         .into_iter()
         .find(|t| carries_identity_claims(t))
         .ok_or_else(|| OidcError::NoIdentityBearer.into())
